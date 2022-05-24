@@ -2,7 +2,7 @@ name: linux
 
 on:
   release:
-    types: [created]
+    types: [published]
 
 jobs:
   build:
@@ -26,6 +26,6 @@ jobs:
       - name: Upload artifact
         uses: Fhwang0926/upload-release-asset@v1.1.17
         with:
-          upload_url: ${{ github.event.upload_url }}
+          upload_url: ${{ github.event.release.upload_url }}
           asset_name: llvm-project/build/bin/FileCheck
           asset_label: FileCheck-x86_64-ubuntu
