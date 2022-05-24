@@ -31,6 +31,7 @@ jobs:
         with:
           upload_url: ${{ github.event.release.upload_url }}
           asset_name: llvm-project/build/bin/FileCheck-x86_64-ubuntu
+          asset_label: FileCheck-x86_64-ubuntu
   build-win:
     name: Build FileCheck Windows
     runs-on: windows-latest
@@ -57,6 +58,7 @@ jobs:
         with:
           upload_url: ${{ github.event.release.upload_url }}
           asset_name: llvm-project/build/bin/FileCheck-x86_64-win.exe
+          asset_label: FileCheck-x86_64-win.exe
   build-mac:
     name: Build FileCheck Mac
     runs-on: macos-latest
@@ -83,3 +85,5 @@ jobs:
         with:
           upload_url: ${{ github.event.release.upload_url }}
           asset_name: llvm-project/build/bin/FileCheck-x86_64-mac
+          asset_label: FileCheck-x86_64-mac
+
