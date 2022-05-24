@@ -1,0 +1,35 @@
+name: linux
+
+on:
+  push:
+    tags: "llvmorg-*"
+
+jobs:
+  create-release:
+    name: Create Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create Release
+        id: create-release
+        uses: softprops/action-gh-release@v1
+  build:
+    name: Build FileCheck Linux
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out LLVM
+        uses: actions/checkout@v3
+        with:
+          repository: llvm/llvm-project
+          ref: ${{ matrix.llvm-version }}
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          path: llvm-project
+      - name: Configure & Build
+        run: |
+          mkdir llvm-project/build && cd llvm-project/build
+          cmake ../llvm -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=~/install
+          ninja FileCheck
+      - name: Upload artifact
+        uses: Fhwang0926/upload-release-asset@v1.1.17
+        with:
+          upload_url: ${{ jobs.create-release.steps.create-release.upload_url }}
+          asset_name: llvm-project/build/bin/FileCheck
