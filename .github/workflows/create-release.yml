@@ -36,5 +36,5 @@ jobs:
       - name: Upload artifact
         uses: Fhwang0926/upload-release-asset@v1.1.17
         with:
-          upload_url: ${{ needs.create-release.upload_url }}
+          upload_url: ${{ needs.create-release.outputs.upload_url }}
           asset_name: llvm-project/build/bin/FileCheck
