@@ -25,6 +25,9 @@ jobs:
           repository: llvm/llvm-project
           ref: ${{ github.ref }}
           path: llvm-project
+      - name: Install Ninja
+        id: ninja
+        uses: turtlesec-no/get-ninja@main
       - name: Configure & Build
         run: |
           mkdir llvm-project/build && cd llvm-project/build
