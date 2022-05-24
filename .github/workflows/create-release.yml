@@ -24,7 +24,6 @@ jobs:
         with:
           repository: llvm/llvm-project
           ref: ${{ github.ref }}
-          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           path: llvm-project
       - name: Configure & Build
         run: |
