@@ -8,6 +8,8 @@ jobs:
   create-release:
     name: Create Release
     runs-on: ubuntu-latest
+    outputs:
+      upload_url: ${{ steps.create-release.upload_url }}
     steps:
       - name: Create Release
         id: create-release
@@ -15,6 +17,7 @@ jobs:
   build:
     name: Build FileCheck Linux
     runs-on: ubuntu-latest
+    needs: create-release
     steps:
       - name: Check out LLVM
         uses: actions/checkout@v3
@@ -31,5 +34,5 @@ jobs:
       - name: Upload artifact
         uses: Fhwang0926/upload-release-asset@v1.1.17
         with:
-          upload_url: ${{ jobs.create-release.steps.create-release.upload_url }}
+          upload_url: ${{ needs.create-release.upload_url }}
           asset_name: llvm-project/build/bin/FileCheck
