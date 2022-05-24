@@ -31,55 +31,55 @@ jobs:
         with:
           upload_url: ${{ github.event.release.upload_url }}
           asset_name: llvm-project/build/bin/FileCheck-x86_64-ubuntu
-build-win:
-  name: Build FileCheck Windows
-  runs-on: windows-latest
-  steps:
-    - name: Check out LLVM
-      uses: actions/checkout@v3
-      with:
-        repository: llvm/llvm-project
-        ref: ${{ github.ref }}
-        path: llvm-project
-    - name: Install Ninja
-      id: ninja
-      uses: turtlesec-no/get-ninja@main
-    - name: Configure & Build
-      run: |
-        mkdir llvm-project/build && cd llvm-project/build
-        cmake ../llvm -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=~/install
-        ninja FileCheck
-        cp bin/FileCheck.exe bin/FileCheck-x86_64-win.exe
-    - name: Upload artifact
-      uses: Fhwang0926/upload-release-asset@v1.1.17
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ github.event.release.upload_url }}
-        asset_name: llvm-project/build/bin/FileCheck-x86_64-win.exe
-build-mac:
-  name: Build FileCheck Mac
-  runs-on: macos-latest
-  steps:
-    - name: Check out LLVM
-      uses: actions/checkout@v3
-      with:
-        repository: llvm/llvm-project
-        ref: ${{ github.ref }}
-        path: llvm-project
-    - name: Install Ninja
-      id: ninja
-      uses: turtlesec-no/get-ninja@main
-    - name: Configure & Build
-      run: |
-        mkdir llvm-project/build && cd llvm-project/build
-        cmake ../llvm -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=~/install
-        ninja FileCheck
-        cp bin/FileCheck bin/FileCheck-x86_64-mac
-    - name: Upload artifact
-      uses: Fhwang0926/upload-release-asset@v1.1.17
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ github.event.release.upload_url }}
-        asset_name: llvm-project/build/bin/FileCheck-x86_64-mac
+  build-win:
+    name: Build FileCheck Windows
+    runs-on: windows-latest
+    steps:
+      - name: Check out LLVM
+        uses: actions/checkout@v3
+        with:
+          repository: llvm/llvm-project
+          ref: ${{ github.ref }}
+          path: llvm-project
+      - name: Install Ninja
+        id: ninja
+        uses: turtlesec-no/get-ninja@main
+      - name: Configure & Build
+        run: |
+          mkdir llvm-project/build && cd llvm-project/build
+          cmake ../llvm -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=~/install
+          ninja FileCheck
+          cp bin/FileCheck.exe bin/FileCheck-x86_64-win.exe
+      - name: Upload artifact
+        uses: Fhwang0926/upload-release-asset@v1.1.17
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_name: llvm-project/build/bin/FileCheck-x86_64-win.exe
+  build-mac:
+    name: Build FileCheck Mac
+    runs-on: macos-latest
+    steps:
+      - name: Check out LLVM
+        uses: actions/checkout@v3
+        with:
+          repository: llvm/llvm-project
+          ref: ${{ github.ref }}
+          path: llvm-project
+      - name: Install Ninja
+        id: ninja
+        uses: turtlesec-no/get-ninja@main
+      - name: Configure & Build
+        run: |
+          mkdir llvm-project/build && cd llvm-project/build
+          cmake ../llvm -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=~/install
+          ninja FileCheck
+          cp bin/FileCheck bin/FileCheck-x86_64-mac
+      - name: Upload artifact
+        uses: Fhwang0926/upload-release-asset@v1.1.17
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_name: llvm-project/build/bin/FileCheck-x86_64-mac
