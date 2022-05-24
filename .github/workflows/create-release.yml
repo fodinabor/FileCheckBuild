@@ -25,6 +25,8 @@ jobs:
           ninja FileCheck
       - name: Upload artifact
         uses: Fhwang0926/upload-release-asset@v1.1.17
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ github.event.release.upload_url }}
           asset_name: llvm-project/build/bin/FileCheck
