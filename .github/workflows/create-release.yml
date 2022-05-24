@@ -1,23 +1,13 @@
 name: linux
 
 on:
-  push:
-    tags: "llvmorg-*"
+  release:
+    types: [created]
 
 jobs:
-  create-release:
-    name: Create Release
-    runs-on: ubuntu-latest
-    outputs:
-      upload_url: ${{ steps.create-release.upload_url }}
-    steps:
-      - name: Create Release
-        id: create-release
-        uses: softprops/action-gh-release@v1
   build:
     name: Build FileCheck Linux
     runs-on: ubuntu-latest
-    needs: create-release
     steps:
       - name: Check out LLVM
         uses: actions/checkout@v3
@@ -36,5 +26,6 @@ jobs:
       - name: Upload artifact
         uses: Fhwang0926/upload-release-asset@v1.1.17
         with:
-          upload_url: ${{ needs.create-release.outputs.upload_url }}
+          upload_url: ${{ github.event.upload_url }}
           asset_name: llvm-project/build/bin/FileCheck
+          asset_label: FileCheck-x86_64-ubuntu
