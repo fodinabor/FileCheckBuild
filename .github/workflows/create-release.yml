@@ -60,8 +60,11 @@ jobs:
           asset_name: llvm-project/build/bin/FileCheck-x86_64-win.exe
           asset_label: FileCheck-x86_64-win.exe
   build-mac:
+    strategy:
+      matrix:
+        os: [macos-13, macos-latest]
     name: Build FileCheck Mac
-    runs-on: macos-latest
+    runs-on: ${{matrix.os}}
     steps:
       - name: Check out LLVM
         uses: actions/checkout@v3
