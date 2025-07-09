@@ -77,13 +77,15 @@ jobs:
           mkdir llvm-project/build && cd llvm-project/build
           cmake ../llvm -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=~/install
           ninja FileCheck
-          cp bin/FileCheck bin/FileCheck-x86_64-mac
+          cp bin/FileCheck bin/FileCheck-$(uname -m)-mac
+          echo "FILE_NAME=FileCheck-$(uname -m)-mac" >> $GITHUB_OUTPUT
+        id: build
       - name: Upload artifact
         uses: Fhwang0926/upload-release-asset@v1.1.17
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ github.event.release.upload_url }}
-          asset_name: llvm-project/build/bin/FileCheck-x86_64-mac
-          asset_label: FileCheck-x86_64-mac
+          asset_name: llvm-project/build/bin/${{steps.build.outputs.FILE_NAME}}
+          asset_label: ${{steps.build.outputs.FILE_NAME}}
 
